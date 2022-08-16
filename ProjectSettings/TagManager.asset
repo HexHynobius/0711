@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - BGM
+  - Enemy
+  - BullePlayer
+  - BulleEnemy
+  - Asteroid
   layers:
   - Default
   - TransparentFX
