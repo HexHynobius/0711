@@ -13,11 +13,16 @@ public class Enemy : MonoBehaviour
     [Header("參考位置")]
     public Transform TargetPoint;
 
+    [Header("粒子系統_Player")]
+    public GameObject PlayerExp;
+
+    public float HurtPlayerNum;
+
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject,DeleteTime);
-        if (gameObject.tag =="Enemy")
+        Destroy(gameObject, DeleteTime);
+        if (gameObject.tag == "Enemy")
         {
             InvokeRepeating("CreateBullets", SetTime, SetTime);
         }
@@ -32,5 +37,16 @@ public class Enemy : MonoBehaviour
     void CreateBullets()
     {
         Instantiate(Bullet, TargetPoint.transform.position, TargetPoint.transform.rotation);
+    }
+
+    private void OnTriggerEnter(Collider hit)
+    {
+        if (hit.GetComponent<Collider>().tag == "Player")
+        {
+            FindObjectOfType<GM>().Hurtplayer(HurtPlayerNum);
+            Instantiate(PlayerExp, hit.transform.position, hit.transform.rotation);
+            Destroy(gameObject);
+        }
+        
     }
 }
